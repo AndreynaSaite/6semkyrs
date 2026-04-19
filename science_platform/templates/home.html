@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+
+    <!-- GUEST VIEW -->
+    <div class="card" id="guest-view">
+        <h1>Welcome 🚀</h1>
+        <p class="text-center">Science publishing platform</p>
+
+        <div class="text-center">
+            <a href="/login/">Login</a> |
+            <a href="/register/">Register</a>
+        </div>
+    </div>
+
+    <!-- PROFILE VIEW -->
+    <div class="card" id="profile-view" style="display:none;">
+        <h1>My Profile 👤</h1>
+
+        <p><b>Email:</b> <span id="user-email"></span></p>
+        <p><b>First name:</b> <span id="user-first"></span></p>
+        <p><b>Last name:</b> <span id="user-last"></span></p>
+
+        <button onclick="logout()">Logout</button>
+    </div>
+
+</div>
+
+<script src="/static/js/home.js"></script>
+{% endblock %}
