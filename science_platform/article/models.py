@@ -10,15 +10,12 @@ class Article(models.Model):
 
     title = models.CharField(max_length=255)
 
-    # краткое описание (preview)
     content = models.TextField()
 
-    # PDF как основная статья
     pdf_file = models.FileField(upload_to='pdfs/')
 
     category = models.CharField(max_length=100)
 
-    # для поиска
     keywords = models.CharField(max_length=255, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)

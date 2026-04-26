@@ -1,28 +1,151 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-<div class="container">
 
-    <!-- GUEST VIEW -->
-    <div class="card" id="guest-view">
-        <h1>Welcome 🚀</h1>
-        <p class="text-center">Science publishing platform</p>
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
 
-        <div class="text-center">
-            <a href="/login/">Login</a> |
-            <a href="/register/">Register</a>
+<div class="page">
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="logo">
+            ScienceHub
         </div>
+
+        <!-- SEARCH -->
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search by title, keywords, content..."
+        >
+
+        <!-- ACTIONS -->
+        <div class="actions">
+            <button onclick="openCreateModal()">+ Create</button>
+            <button onclick="openProfile()">👤 Profile</button>
+        </div>
+
+    </header>
+
+    <!-- ALL ARTICLES -->
+    <main id="articlesContainer"></main>
+
+</div>
+
+
+<!-- ================= CREATE ARTICLE ================= -->
+
+<div class="modal hidden" id="createModal">
+
+    <div class="modal-box">
+
+        <h2>Create Article</h2>
+
+        <input
+            type="text"
+            id="title"
+            placeholder="Article title"
+        >
+
+        <input
+            type="text"
+            id="category"
+            placeholder="Category"
+        >
+
+        <input
+            type="text"
+            id="keywords"
+            placeholder="Keywords (comma separated)"
+        >
+
+        <textarea
+            id="content"
+            placeholder="Write article content..."
+        ></textarea>
+
+        <input
+            type="file"
+            id="pdf"
+            accept=".pdf"
+        >
+
+        <div class="actions-row">
+            <button onclick="createArticle()">Publish</button>
+            <button onclick="closeCreateModal()">Close</button>
+        </div>
+
     </div>
 
-    <!-- PROFILE VIEW -->
-    <div class="card" id="profile-view" style="display:none;">
-        <h1>My Profile 👤</h1>
+</div>
 
-        <p><b>Email:</b> <span id="user-email"></span></p>
-        <p><b>First name:</b> <span id="user-first"></span></p>
-        <p><b>Last name:</b> <span id="user-last"></span></p>
 
-        <button onclick="logout()">Logout</button>
+<!-- ================= PROFILE ================= -->
+
+<div class="modal hidden" id="profileModal">
+
+    <div class="modal-box">
+
+        <h2>My Profile</h2>
+
+        <!-- USER DATA -->
+        <div id="profileInfo"></div>
+
+        <h3>My Articles</h3>
+
+        <!-- MY ARTICLES -->
+        <div id="myArticles"></div>
+
+        <div class="actions-row">
+            <button onclick="logout()">Logout</button>
+            <button onclick="closeProfile()">Close</button>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= ARTICLE DETAILS ================= -->
+
+<div class="modal hidden" id="articleModal">
+
+    <div class="modal-box large">
+
+        <!-- ARTICLE INFO -->
+        <div id="articleView"></div>
+
+        <hr>
+
+        <!-- REVIEWS -->
+        <h3>Reviews</h3>
+
+        <div id="reviews"></div>
+
+        <hr>
+
+        <!-- ADD REVIEW -->
+        <h3>Leave Review</h3>
+
+        <textarea
+            id="reviewText"
+            placeholder="Write your review..."
+        ></textarea>
+
+        <input
+            type="number"
+            id="rating"
+            min="1"
+            max="5"
+            value="5"
+        >
+
+        <div class="actions-row">
+            <button onclick="sendReview()">Send Review</button>
+            <button onclick="closeArticle()">Close</button>
+        </div>
+
     </div>
 
 </div>

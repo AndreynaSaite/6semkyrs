@@ -5,8 +5,6 @@ from .models import Article, Review
 
 User = get_user_model()
 
-
-# 👤 USER (публичный)
 class UserPublicSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -17,8 +15,6 @@ class UserPublicSerializer(serializers.ModelSerializer):
             'last_name',
         ]
 
-
-# 💬 REVIEW (read)
 class ReviewSerializer(serializers.ModelSerializer):
     user = UserPublicSerializer(read_only=True)
 
@@ -33,8 +29,6 @@ class ReviewSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ['user', 'created_at']
 
-
-# 💬 REVIEW (create)
 class ReviewCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
@@ -44,49 +38,38 @@ class ReviewCreateSerializer(serializers.ModelSerializer):
             'rating',
         ]
 
-
-# 📄 ARTICLE (READ - list/detail)
 class ArticleSerializer(serializers.ModelSerializer):
-    # 🔵 structured user (best practice)
     user = UserPublicSerializer(read_only=True)
 
-    # 🟢 flattened fields (for frontend convenience)
     author_first_name = serializers.CharField(source='user.first_name', read_only=True)
     author_last_name = serializers.CharField(source='user.last_name', read_only=True)
     author_email = serializers.CharField(source='user.email', read_only=True)
 
-    # 💬 nested reviews
     reviews = ReviewSerializer(many=True, read_only=True)
     reviews_count = serializers.IntegerField(source='reviews.count', read_only=True)
 
     class Meta:
         model = Article
         fields = [
-            # base
             'id',
             'title',
-            'content',      # preview text
+            'content',
             'pdf_file',
             'category',
             'keywords',
             'created_at',
             'updated_at',
 
-            # user (structured)
             'user',
 
-            # user (frontend-friendly)
             'author_first_name',
             'author_last_name',
             'author_email',
 
-            # reviews
             'reviews',
             'reviews_count',
         ]
 
-
-# ✍️ ARTICLE (CREATE)
 class ArticleCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
@@ -98,8 +81,6 @@ class ArticleCreateSerializer(serializers.ModelSerializer):
             'keywords',
         ]
 
-
-# ✍️ ARTICLE (UPDATE)
 class ArticleUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article

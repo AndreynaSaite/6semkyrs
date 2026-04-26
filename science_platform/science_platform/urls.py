@@ -28,4 +28,4 @@ urlpatterns = [
     path('register/', lambda request: render(request, 'register.html'), name='register_page'),
 ]
 
-print("🔥 MAIN URLS LOADED")
+print("MAIN URLS LOADED")

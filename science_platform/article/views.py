@@ -20,7 +20,6 @@ class ArticleCreateView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         article = serializer.save(user=request.user)
 
-        # 👇 ВОТ ТУТ МАГИЯ
         response_serializer = ArticleSerializer(article)
 
         return Response(response_serializer.data, status=201)
