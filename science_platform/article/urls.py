@@ -8,6 +8,6 @@ urlpatterns = [
     path('my-articles/', MyArticlesView.as_view(), name='my-articles'),
     path('review-create/', ReviewCreateView.as_view(), name='review-create'),
     path('review-list/<int:article_id>/', ReviewListView.as_view(), name='review-list'),
-    path('review-update/<int:review_id>/', ReviewUpdateView.as_view(), name='review-update'),
-    path('review-delete/<int:review_id>/', ReviewDeleteView.as_view(), name='review-delete'),
+    path('review-update/<int:pk>/', ReviewUpdateView.as_view(), name='review-update'),
+    path('review-delete/<int:pk>/', ReviewDeleteView.as_view(), name='review-delete'),
 ]
